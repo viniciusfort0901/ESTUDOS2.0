@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Preparação Bosch — Jovem Aprendiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --red:#E3001B;--red-hover:#C8001A;
+  --bg:#FFFFFF;--bg2:#F2F2F2;--bg3:#FAFAFA;
+  --border:#E0E0E0;--border2:#CCCCCC;
+  --text:#1A1A1A;--text2:#555555;--text3:#999999;
+  --green:#00884A;--green-bg:#E6F4EE;
+  --amber:#C47F00;--amber-bg:#FFF3CC;
+  --blue:#005691;--blue-bg:#E6EFF6;
+  --purple:#7C3AED;--purple-bg:#F3F0FF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
+.topbar{background:#1A1A1A;color:#ccc;font-size:12px;padding:8px 0;text-align:center;letter-spacing:.3px}
+.navbar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.navbar-inner{max-width:1060px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;height:60px}
+.bosch-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.bosch-logo-sub{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:.5px;border-left:1px solid var(--border2);padding-left:10px}
+.nav-links{display:flex;gap:2px;flex:1}
+.nav-link{font-size:13px;font-weight:500;color:var(--text2);padding:8px 12px;border-radius:4px;border:none;background:transparent;cursor:pointer;transition:all .15s;white-space:nowrap;border-bottom:2px solid transparent}
+.nav-link:hover{color:var(--text);background:var(--bg2)}
+.nav-link.active{color:var(--red);border-bottom:2px solid var(--red);border-radius:0}
+.hero{background:linear-gradient(135deg,#1A1A1A 0%,#2D2D2D 60%,#3a0008 100%);color:#fff;padding:48px 24px 44px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;border-radius:50%;border:1px solid rgba(227,0,27,0.15);pointer-events:none}
+.hero-inner{max-width:1060px;margin:0 auto}
+.hero-tag{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:4px 12px;border-radius:2px;margin-bottom:14px;text-transform:uppercase}
+.hero-title{font-size:34px;font-weight:700;line-height:1.1;margin-bottom:10px;letter-spacing:-0.5px}
+.hero-title span{color:var(--red)}
+.hero-sub{font-size:14px;color:#ccc;margin-bottom:24px;max-width:500px;line-height:1.6}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-val{font-size:26px;font-weight:700;color:#fff;line-height:1}
+.hero-stat-val span{color:var(--red)}
+.hero-stat-label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-top:4px}
+.container{max-width:1060px;margin:0 auto;padding:36px 24px 72px}
+.sec-header{margin-bottom:18px}
+.sec-label{font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.sec-title{font-size:19px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.sec-divider{height:3px;width:36px;background:var(--red);border-radius:2px;margin-top:7px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px}
+.metric-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:18px 16px;border-top:3px solid var(--border);transition:border-color .2s,box-shadow .2s}
+.metric-card:hover{border-top-color:var(--red);box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+.m-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.m-value{font-size:30px;font-weight:700;color:var(--text);line-height:1}
+.m-sub{font-size:12px;color:var(--text3);margin-top:4px}
+.m-value.good{color:var(--green)}.m-value.warn{color:var(--amber)}.m-value.danger{color:var(--red)}
+.subjects{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px}
+.subject-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:18px;transition:box-shadow .2s,border-color .2s}
+.subject-card:hover{box-shadow:0 4px 16px rgba(0,0,0,0.08);border-color:var(--border2)}
+.s-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.s-name{font-size:14px;font-weight:700;color:var(--text)}
+.s-pct{font-size:22px;font-weight:700}
+.s-priority{font-size:11px;color:var(--text3);margin-bottom:12px}
+.bar-bg{height:5px;background:var(--bg2);border-radius:0;overflow:hidden;margin-bottom:12px}
+.bar-fill{height:100%;border-radius:0;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.s-btns{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.s-btn{font-size:11px;font-weight:600;padding:4px 9px;border-radius:2px;border:1px solid var(--border2);background:#fff;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+.s-btn:hover{background:var(--bg2)}
+.s-btn.plus:hover{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.s-btn.minus:hover{background:#FFEEF0;border-color:var(--red);color:var(--red)}
+.s-status{margin-left:auto;font-size:11px;font-weight:600;padding:3px 8px;border-radius:2px}
+.s-status.green{background:var(--green-bg);color:var(--green)}
+.s-status.amber{background:var(--amber-bg);color:var(--amber)}
+.s-status.muted{background:var(--bg2);color:var(--text3)}
+.chart-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:36px}
+.chart-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:20px}
+.chart-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.cal-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:36px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+.cal-nav{display:flex;align-items:center;gap:8px}
+.cal-nav button{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:5px 12px;border-radius:2px;border:1px solid var(--border2);background:#fff;color:var(--text2);cursor:pointer;transition:all .15s}
+.cal-nav button:hover{background:var(--bg2)}
+.cal-month-label{font-size:14px;font-weight:700;color:var(--text);min-width:155px;text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day-header{font-size:10px;font-weight:700;color:var(--text3);text-align:center;padding:4px 0;text-transform:uppercase;letter-spacing:.5px}
+.cal-day{aspect-ratio:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;cursor:default;transition:transform .1s;border:1px solid transparent}
+.cal-day:hover{transform:scale(1.08)}
+.cal-day.empty{background:transparent;border-color:transparent}
+.cal-day.future{background:var(--bg2);color:var(--text3);border-color:var(--border)}
+.cal-day.today{background:#fff;color:var(--red);border:2px solid var(--red);font-weight:800;cursor:pointer}
+.cal-day.studied{background:var(--green);color:#fff;border-color:var(--green);cursor:pointer}
+.cal-day.not-studied{background:#FF5A6A;color:#fff;border-color:#FF5A6A;cursor:pointer}
+.cal-legend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap}
+.cal-leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
+.cal-leg-sq{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.cal-today-info{font-size:12px;color:var(--text2);background:var(--bg2);border-radius:2px;padding:5px 10px;border-left:3px solid var(--red)}
+.weeks-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:36px}
+.weeks-grid{display:grid;grid-template-columns:repeat(16,1fr);gap:4px;margin-bottom:10px}
+.week-cell{aspect-ratio:1;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;transition:transform .1s;cursor:default}
+.week-cell:hover{transform:scale(1.1)}
+.wleg{display:flex;gap:18px;flex-wrap:wrap}
+.wleg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)}
+.wleg-sq{width:12px;height:12px;border-radius:2px}
+.add-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:20px;margin-bottom:36px}
+.add-desc{font-size:13px;color:var(--text2);margin-bottom:12px}
+.add-row{display:flex;gap:8px;flex-wrap:wrap}
+.add-row select,.add-row input{font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;border-radius:2px;border:1px solid var(--border2);background:#fff;color:var(--text);outline:none;transition:border-color .15s}
+.add-row select:focus,.add-row input:focus{border-color:var(--red)}
+.add-row select{flex:1;min-width:160px}
+.add-row input[type=number]{width:85px;flex-shrink:0}
+.add-row input[type=text]{flex:2;min-width:140px}
+.btn-primary{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;padding:9px 20px;border-radius:2px;border:none;background:var(--red);color:#fff;cursor:pointer;transition:background .15s;letter-spacing:.3px;white-space:nowrap;text-transform:uppercase}
+.btn-primary:hover{background:var(--red-hover)}
+.btn-secondary{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;padding:9px 20px;border-radius:2px;border:1px solid var(--border2);background:#fff;color:var(--text);cursor:pointer;transition:all .15s}
+.btn-secondary:hover{background:var(--bg2)}
+.sessions-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:20px}
+.session-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.session-item:last-child{border-bottom:none}
+.s-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.s-subj2{font-weight:600;color:var(--text);min-width:140px}
+.s-note2{color:var(--text2);flex:1;font-size:12px}
+.s-gain{color:var(--green);font-size:12px;font-weight:700}
+.s-date2{color:var(--text3);font-size:11px}
+.empty-state{color:var(--text3);font-size:13px;padding:20px 0;text-align:center}
+
+/* QUIZ LAYOUT COM PROFESSOR */
+.quiz-layout{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
+.quiz-main{min-width:0}
+
+/* PROFESSOR CHAT */
+.prof-panel{background:#fff;border:1px solid var(--border);border-radius:4px;position:sticky;top:76px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.prof-header{background:#1A1A1A;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.prof-avatar{width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.prof-info{flex:1}
+.prof-name{font-size:13px;font-weight:700;color:#fff}
+.prof-status{font-size:11px;color:#aaa;display:flex;align-items:center;gap:4px}
+.prof-status-dot{width:6px;height:6px;border-radius:50%;background:#22C55E}
+.prof-context{background:#F8F8F8;border-bottom:1px solid var(--border);padding:10px 12px;font-size:11px;color:var(--text2);line-height:1.4}
+.prof-context strong{color:var(--text);display:block;margin-bottom:2px}
+.prof-messages{height:360px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.prof-messages::-webkit-scrollbar{width:4px}
+.prof-messages::-webkit-scrollbar-track{background:transparent}
+.prof-messages::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.msg{max-width:88%;font-size:12px;line-height:1.55;padding:9px 12px;border-radius:8px;word-break:break-word}
+.msg.prof{background:var(--bg2);color:var(--text);border-bottom-left-radius:2px;align-self:flex-start}
+.msg.prof strong{color:var(--red);font-size:11px;display:block;margin-bottom:3px}
+.msg.user{background:var(--red);color:#fff;border-bottom-right-radius:2px;align-self:flex-end}
+.msg.typing{background:var(--bg2);align-self:flex-start;padding:10px 14px}
+.typing-dots{display:flex;gap:4px;align-items:center}
+.typing-dots span{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:blink 1.2s infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.prof-input-area{border-top:1px solid var(--border);padding:10px 12px;display:flex;gap:6px;background:#fff}
+.prof-input{font-family:'Inter',sans-serif;font-size:12px;flex:1;padding:8px 10px;border:1px solid var(--border2);border-radius:2px;outline:none;resize:none;height:38px;overflow:hidden;transition:border-color .15s;color:var(--text)}
+.prof-input:focus{border-color:var(--red)}
+.prof-send{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;padding:8px 14px;background:var(--red);color:#fff;border:none;border-radius:2px;cursor:pointer;transition:background .15s;white-space:nowrap;flex-shrink:0}
+.prof-send:hover{background:var(--red-hover)}
+.prof-send:disabled{background:var(--border2);cursor:not-allowed}
+.prof-quick-btns{padding:8px 12px;border-top:1px solid var(--border);display:flex;gap:4px;flex-wrap:wrap;background:#FAFAFA}
+.quick-btn{font-size:10px;font-weight:600;padding:4px 8px;border:1px solid var(--border2);border-radius:2px;background:#fff;color:var(--text2);cursor:pointer;transition:all .15s}
+.quick-btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+/* Quiz original styles */
+.quiz-hero{background:var(--bg2);border-bottom:1px solid var(--border);padding:28px 24px;margin-bottom:28px}
+.quiz-hero-inner{max-width:1060px;margin:0 auto}
+.quiz-start-title{font-size:24px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.quiz-start-sub{font-size:13px;color:var(--text2);margin-bottom:18px;max-width:560px;line-height:1.6}
+.level-cards{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.level-card{flex:1;min-width:130px;background:#fff;border:1px solid var(--border);border-radius:4px;padding:12px 14px;border-top:3px solid}
+.level-card.l1{border-top-color:var(--green)}
+.level-card.l2{border-top-color:var(--blue)}
+.level-card.l3{border-top-color:var(--amber)}
+.level-card.l4{border-top-color:var(--red)}
+.level-card-title{font-size:12px;font-weight:700;margin-bottom:3px}
+.level-card-desc{font-size:11px;color:var(--text2)}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.filter-btn{font-size:12px;font-weight:600;padding:5px 14px;border-radius:2px;border:1px solid var(--border2);background:#fff;color:var(--text2);cursor:pointer;transition:all .15s}
+.filter-btn:hover{background:var(--bg2)}
+.filter-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+.quiz-prog-wrap{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.quiz-prog-bar{flex:1;height:4px;background:var(--bg2);border-radius:0;overflow:hidden}
+.quiz-prog-fill{height:100%;background:var(--red);transition:width .3s}
+.quiz-prog-label{font-size:12px;font-weight:600;color:var(--text2);white-space:nowrap}
+.q-card{background:#fff;border:1px solid var(--border);border-radius:4px;padding:24px;margin-bottom:14px}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.q-cat-tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:2px;text-transform:uppercase;letter-spacing:.5px}
+.q-diff-tag{font-size:11px;color:var(--text3)}
+.q-num-tag{margin-left:auto;font-size:11px;color:var(--text3)}
+.q-text{font-size:18px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:20px;letter-spacing:-.2px}
+.options{display:flex;flex-direction:column;gap:9px}
+.opt-btn{font-family:'Inter',sans-serif;font-size:14px;padding:13px 16px;border-radius:2px;border:1px solid var(--border2);background:#fff;color:var(--text2);cursor:pointer;text-align:left;transition:all .18s;display:flex;align-items:center;gap:12px}
+.opt-btn:hover:not(:disabled){border-color:var(--red);color:var(--text);background:#FFF5F6}
+.opt-letter{width:26px;height:26px;border-radius:2px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;transition:all .18s}
+.opt-btn.correct{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+.opt-btn.correct .opt-letter{background:var(--green);color:#fff}
+.opt-btn.wrong{border-color:var(--red);background:#FFF0F0;color:var(--red)}
+.opt-btn.wrong .opt-letter{background:var(--red);color:#fff}
+.opt-btn:disabled{cursor:default}
+.feedback-box{margin-top:12px;padding:12px 16px;border-radius:2px;font-size:13px;line-height:1.6;display:none;border-left:3px solid}
+.feedback-box.show{display:block}
+.feedback-box.ok{background:var(--green-bg);border-color:var(--green);color:#005530}
+.feedback-box.fail{background:#FFF0F0;border-color:var(--red);color:#9B0013}
+.quiz-nav{display:flex;justify-content:flex-end;margin-top:14px}
+.btn-next{display:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;padding:10px 24px;border-radius:2px;border:none;background:var(--red);color:#fff;cursor:pointer;transition:background .15s;letter-spacing:.3px;text-transform:uppercase}
+.btn-next.show{display:block}
+.btn-next:hover{background:var(--red-hover)}
+.result-hero{background:linear-gradient(135deg,#1A1A1A,#2D2D2D);color:#fff;border-radius:4px;padding:32px;text-align:center;margin-bottom:14px}
+.res-score{font-size:68px;font-weight:700;line-height:1}
+.res-label{font-size:14px;color:#ccc;margin-top:8px;margin-bottom:18px}
+.res-msg{font-size:14px;color:#ddd;line-height:1.6;max-width:480px;margin:0 auto 14px}
+.res-next{font-size:12px;color:#888;margin-bottom:20px}
+.res-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hist-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px}
+.hist-item:last-child{border-bottom:none}
+.hist-score{font-size:18px;font-weight:700;min-width:50px}
+.hist-info{flex:1;color:var(--text2)}
+.hist-level-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:2px;background:var(--bg2);color:var(--text3)}
+.hist-date{font-size:11px;color:var(--text3)}
+.level-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:2px;border:1px solid;text-transform:uppercase;letter-spacing:.5px}
+.lb-1{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.lb-2{background:var(--blue-bg);border-color:var(--blue);color:var(--blue)}
+.lb-3{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
+.lb-4{background:#FFF0F0;border-color:var(--red);color:var(--red)}
+.breakdown-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px}
+.breakdown-item:last-child{border-bottom:none}
+
+@media(max-width:900px){
+  .quiz-layout{grid-template-columns:1fr}
+  .prof-panel{position:fixed;bottom:0;left:0;right:0;z-index:200;border-radius:0;max-height:50vh}
+  .prof-messages{height:180px}
+  .quiz-layout .quiz-main{padding-bottom:300px}
+}
+@media(max-width:720px){
+  .metrics{grid-template-columns:1fr 1fr}
+  .subjects{grid-template-columns:1fr}
+  .chart-grid{grid-template-columns:1fr}
+  .weeks-grid{grid-template-columns:repeat(8,1fr)}
+  .hero-title{font-size:24px}
+  .level-cards{flex-direction:column}
+  .navbar-inner{gap:12px}
+  .cal-grid{gap:2px}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.q-card{animation:fadeUp .25s ease}
+.result-hero{animation:fadeUp .3s ease}
+.msg{animation:fadeUp .2s ease}
+</style>
+</head>
+<body>
+
+<div class="topbar">Preparação oficial — Jovem Aprendiz Bosch Brasil · Soluções Digitais</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="bosch-logo" href="#" style="text-decoration:none">
+      <svg width="38" height="38" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" fill="white" stroke="#1a1a1a" stroke-width="4"/>
+        <circle cx="50" cy="50" r="36" fill="white" stroke="#1a1a1a" stroke-width="3.5"/>
+        <rect x="19" y="26" width="9" height="48" rx="4.5" fill="#1a1a1a"/>
+        <rect x="72" y="26" width="9" height="48" rx="4.5" fill="#1a1a1a"/>
+        <rect x="19" y="45" width="62" height="10" rx="5" fill="#1a1a1a"/>
+      </svg>
+      <span style="font-family:Arial,sans-serif;font-size:21px;font-weight:900;color:#E3001B;letter-spacing:1.5px">BOSCH</span>
+      <span class="bosch-logo-sub">Estudos</span>
+    </a>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('dashboard',this)">Painel</button>
+      <button class="nav-link" onclick="showPage('quiz',this)">Simulados</button>
+      <button class="nav-link" onclick="showPage('historico',this)">Histórico</button>
+    </div>
+    <div id="days-badge" style="font-size:12px;font-weight:600;color:var(--red);white-space:nowrap">— dias</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Jovem Aprendiz 2026</div>
+    <h1 class="hero-title">Preparação para a prova<br><span>#LikeABosch</span></h1>
+    <p class="hero-sub">6 matérias · Simulados adaptativos · Professor IA · Calendário de estudos.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-val" id="h-total">0<span>%</span></div><div class="hero-stat-label">Progresso geral</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="h-days">—</div><div class="hero-stat-label">Dias restantes</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="h-sims">0</div><div class="hero-stat-label">Simulados feitos</div></div>
+      <div class="hero-stat"><div class="hero-stat-val" id="h-level">1</div><div class="hero-stat-label">Nível atual</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page" style="display:block">
+<div class="container">
+  <div style="margin-bottom:32px">
+    <div class="sec-header"><div class="sec-label">Visão geral</div><div class="sec-title">Seu progresso hoje</div><div class="sec-divider"></div></div>
+    <div class="metrics">
+      <div class="metric-card"><div class="m-label">Progresso geral</div><div class="m-value" id="m-total">0%</div><div class="m-sub">ponderado</div></div>
+      <div class="metric-card"><div class="m-label">Dias restantes</div><div class="m-value warn" id="m-days">—</div><div class="m-sub">abertura: 1 set 2026</div></div>
+      <div class="metric-card"><div class="m-label">Simulados completos</div><div class="m-value" id="m-sessions">0</div><div class="m-sub">finalizados</div></div>
+      <div class="metric-card"><div class="m-label">Matérias no verde</div><div class="m-value good" id="m-green">0/6</div><div class="m-sub">acima de 70%</div></div>
+    </div>
+  </div>
+  <div style="margin-bottom:32px">
+    <div class="sec-header"><div class="sec-label">Matérias</div><div class="sec-title">Progresso por área</div><div class="sec-divider"></div></div>
+    <div class="subjects" id="subjects-grid"></div>
+  </div>
+  <div style="margin-bottom:32px">
+    <div class="sec-header"><div class="sec-label">Análise</div><div class="sec-title">Desempenho semanal</div><div class="sec-divider"></div></div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-label">Evolução do progresso</div>
+        <div style="position:relative;width:100%;height:200px"><canvas id="lineChart"></canvas></div>
+      </div>
+      <div class="chart-card" style="display:flex;flex-direction:column">
+        <div class="chart-label">Peso por matéria</div>
+        <div style="position:relative;flex:1;min-height:140px"><canvas id="pieChart"></canvas></div>
+        <div id="pie-legend" style="margin-top:10px;display:flex;flex-direction:column;gap:5px;font-size:11px;color:var(--text3)"></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-bottom:32px">
+    <div class="sec-header"><div class="sec-label">Calendário</div><div class="sec-title">Registro diário de estudos</div><div class="sec-divider"></div></div>
+    <div class="cal-card">
+      <div class="cal-header">
+        <div class="cal-nav">
+          <button onclick="calPrev()">&#9664;</button>
+          <div class="cal-month-label" id="cal-month-label">—</div>
+          <button onclick="calNext()">&#9654;</button>
+        </div>
+        <div class="cal-today-info" id="cal-today-info">—</div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="cal-legend">
+        <div class="cal-leg-item"><div class="cal-leg-sq" style="background:var(--green)"></div>Estudou</div>
+        <div class="cal-leg-item"><div class="cal-leg-sq" style="background:#FF5A6A"></div>Não estudou</div>
+        <div class="cal-leg-item"><div class="cal-leg-sq" style="background:var(--bg2);border:1px solid var(--border)"></div>Futuro</div>
+        <div class="cal-leg-item"><div class="cal-leg-sq" style="background:#fff;border:2px solid var(--red)"></div>Hoje</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-bottom:32px">
+    <div class="sec-header"><div class="sec-label">Cronograma</div><div class="sec-title">16 semanas de preparação</div><div class="sec-divider"></div></div>
+    <div class="weeks-card">
+      <div class="weeks-grid" id="weeks-grid"></div>
+      <div class="wleg">
+        <div class="wleg-item"><div class="wleg-sq" style="background:var(--bg2);border:1px solid var(--border2)"></div>Semana futura</div>
+        <div class="wleg-item"><div class="wleg-sq" style="background:var(--blue)"></div>Estudou</div>
+        <div class="wleg-item"><div class="wleg-sq" style="background:var(--green)"></div>Meta batida</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-bottom:32px">
+    <div class="sec-header"><div class="sec-label">Manual</div><div class="sec-title">Registrar sessão de estudo</div><div class="sec-divider"></div></div>
+    <div class="add-card">
+      <p class="add-desc">Registre sessões manuais. Ao salvar, hoje é marcado como estudado no calendário.</p>
+      <div class="add-row">
+        <select id="sel-subject">
+          <option value="">Selecione a matéria...</option>
+          <option value="0">Raciocínio lógico</option>
+          <option value="1">Matemática básica</option>
+          <option value="2">Interpretação de texto</option>
+          <option value="3">Informática básica</option>
+          <option value="4">Programação / Tecnologia</option>
+          <option value="5">Português</option>
+        </select>
+        <input type="number" id="inp-pct" placeholder="1–10" min="1" max="10"/>
+        <input type="text" id="inp-note" placeholder="O que você estudou hoje?"/>
+        <button class="btn-primary" onclick="addSession()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- QUIZ -->
+<div id="page-quiz" class="page" style="display:none">
+  <div id="quiz-start-screen">
+    <div class="quiz-hero">
+      <div class="quiz-hero-inner">
+        <div class="quiz-start-title">Simulados Adaptativos</div>
+        <p class="quiz-start-sub">20 questões por simulado. Professor IA disponível durante todo o simulado para tirar suas dúvidas em tempo real. Dificuldade ajusta automaticamente.</p>
+        <div class="level-cards">
+          <div class="level-card l1"><div class="level-card-title" style="color:var(--green)">Nível 1 — Fácil</div><div class="level-card-desc">Conceitos básicos.</div></div>
+          <div class="level-card l2"><div class="level-card-title" style="color:var(--blue)">Nível 2 — Médio</div><div class="level-card-desc">Questões intermediárias.</div></div>
+          <div class="level-card l3"><div class="level-card-title" style="color:var(--amber)">Nível 3 — Difícil</div><div class="level-card-desc">Estilo prova real.</div></div>
+          <div class="level-card l4"><div class="level-card-title" style="color:var(--red)">Nível 4 — Expert</div><div class="level-card-desc">Alta dificuldade.</div></div>
+        </div>
+        <div style="background:#fff;border:1px solid var(--border);border-radius:4px;padding:12px 16px;display:inline-flex;gap:20px;margin-bottom:18px;flex-wrap:wrap">
+          <span style="font-size:12px;color:var(--green);font-weight:600">✓ &gt;70% → sobe nível</span>
+          <span style="font-size:12px;color:var(--amber);font-weight:600">~ 50–70% → mantém</span>
+          <span style="font-size:12px;color:var(--red);font-weight:600">✗ &lt;50% → cai nível</span>
+        </div>
+        <div style="margin-bottom:8px;font-size:13px;color:var(--text2)">Nível atual: <strong id="current-level-label" style="color:var(--text)">—</strong></div>
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="setFilter('todas',this)">Todas</button>
+          <button class="filter-btn" onclick="setFilter('logica',this)">Lógica</button>
+          <button class="filter-btn" onclick="setFilter('matematica',this)">Matemática</button>
+          <button class="filter-btn" onclick="setFilter('informatica',this)">Informática</button>
+          <button class="filter-btn" onclick="setFilter('interpretacao',this)">Interpretação</button>
+          <button class="filter-btn" onclick="setFilter('programacao',this)">Programação</button>
+          <button class="filter-btn" onclick="setFilter('portugues',this)">Português</button>
+        </div>
+        <button class="btn-primary" onclick="startQuiz()" style="font-size:14px;padding:12px 28px">Iniciar simulado →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="quiz-in-progress" style="display:none">
+    <div class="container" style="padding-top:20px">
+      <div class="quiz-layout">
+        <!-- Coluna principal -->
+        <div class="quiz-main">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+            <div style="font-size:14px;font-weight:700;color:var(--text)">Questão <span id="q-num">1</span> de 20</div>
+            <div class="level-badge lb-1" id="level-badge">Nível 1 — Fácil</div>
+          </div>
+          <div class="quiz-prog-wrap">
+            <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="quiz-prog-fill" style="width:0%"></div></div>
+            <div class="quiz-prog-label" id="q-num2">1/20</div>
+          </div>
+          <div class="q-card">
+            <div class="q-meta">
+              <span class="q-cat-tag" id="q-cat">—</span>
+              <span class="q-diff-tag" id="q-diff">—</span>
+              <span class="q-num-tag" id="q-num3">1/20</span>
+            </div>
+            <div class="q-text" id="q-text">—</div>
+            <div class="options" id="q-options"></div>
+            <div class="feedback-box" id="q-feedback"></div>
+          </div>
+          <div class="quiz-nav"><button class="btn-next" id="btn-next" onclick="nextQuestion()">Próxima →</button></div>
+        </div>
+
+        <!-- PROFESSOR IA -->
+        <div class="prof-panel" id="prof-panel">
+          <div class="prof-header">
+            <div class="prof-avatar">🤖</div>
+            <div class="prof-info">
+              <div class="prof-name">Prof. Bosch IA</div>
+              <div class="prof-status"><span class="prof-status-dot"></span>Online · pronto para ajudar</div>
+            </div>
+          </div>
+          <div class="prof-context" id="prof-context">
+            <strong>📝 Questão atual</strong>
+            Inicie o simulado para ver o contexto.
+          </div>
+          <div class="prof-messages" id="prof-messages">
+            <div class="msg prof">
+              <strong>Prof. Bosch IA</strong>
+              Olá! Sou seu professor durante o simulado. Posso explicar conceitos, tirar dúvidas sobre qualquer questão ou matéria. Pergunte à vontade! 📚
+            </div>
+          </div>
+          <div class="prof-quick-btns" id="prof-quick-btns">
+            <button class="quick-btn" onclick="sendQuick('Pode explicar melhor essa questão?')">Explicar questão</button>
+            <button class="quick-btn" onclick="sendQuick('Qual a dica para esse tipo de questão?')">Dica</button>
+            <button class="quick-btn" onclick="sendQuick('Não entendi o gabarito, pode detalhar?')">Gabarito</button>
+          </div>
+          <div class="prof-input-area">
+            <textarea class="prof-input" id="prof-input" placeholder="Pergunte algo..." rows="1" onkeydown="profKeydown(event)"></textarea>
+            <button class="prof-send" id="prof-send-btn" onclick="sendProfMessage()">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="quiz-result" style="display:none">
+    <div class="container" style="padding-top:20px">
+      <div class="result-hero">
+        <div class="res-score" id="res-score">0%</div>
+        <div class="res-label" id="res-label">—</div>
+        <div class="res-msg" id="res-msg">—</div>
+        <div class="res-next" id="res-next">—</div>
+        <div class="res-btns">
+          <button class="btn-secondary" onclick="restartSameLevel()">↺ Refazer</button>
+          <button class="btn-primary" onclick="showStartScreen()">Novo simulado</button>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="sec-header" style="margin-bottom:12px"><div class="sec-label">Revisão</div><div class="sec-title">Detalhes do simulado</div><div class="sec-divider"></div></div>
+        <div id="breakdown-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTÓRICO -->
+<div id="page-historico" class="page" style="display:none">
+<div class="container">
+  <div style="margin-bottom:28px">
+    <div class="sec-header"><div class="sec-label">Simulados</div><div class="sec-title">Histórico de resultados</div><div class="sec-divider"></div></div>
+    <div class="sessions-card"><div id="sim-hist-list"><div class="empty-state">Nenhum simulado realizado ainda.</div></div></div>
+  </div>
+  <div>
+    <div class="sec-header"><div class="sec-label">Sessões manuais</div><div class="sec-title">Registros de estudo</div><div class="sec-divider"></div></div>
+    <div class="sessions-card"><div id="session-list"><div class="empty-state">Nenhuma sessão registrada.</div></div></div>
+  </div>
+</div>
+</div>
+
+<script>
+// =========================================================
+// ESTADO
+// =========================================================
+const STORE='bosch_v7';
+let state=JSON.parse(localStorage.getItem(STORE)||'null')||{
+  progress:[0,0,0,0,0,0],
+  sessions:[],weeklyLog:{},
+  quizLevel:1,quizFilter:'todas',
+  simHistory:[],studyLog:{},lastQuizIds:[]
+};
+function save(){localStorage.setItem(STORE,JSON.stringify(state))}
+
+// =========================================================
+// FUSO BRASÍLIA
+// =========================================================
+function getBrasiliaDate(d){
+  const dt=d||new Date();
+  const utc=dt.getTime()+dt.getTimezoneOffset()*60000;
+  return new Date(utc-3*3600000);
+}
+function todayKey(){
+  const b=getBrasiliaDate();
+  return b.getFullYear()+'-'+String(b.getMonth()+1).padStart(2,'0')+'-'+String(b.getDate()).padStart(2,'0');
+}
+function dateKey(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
+function daysLeft(){
+  const b=getBrasiliaDate();
+  const hoje=new Date(b.getFullYear(),b.getMonth(),b.getDate());
+  return Math.max(0,Math.round((new Date(2026,8,1)-hoje)/86400000));
+}
+function markStudiedToday(){state.studyLog[todayKey()]='studied';save()}
+
+// =========================================================
+// CALENDÁRIO
+// =========================================================
+let calYear,calMonth;
+(function(){const b=getBrasiliaDate();calYear=b.getFullYear();calMonth=b.getMonth()})();
+const MONTHS_PT=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const DAYS_PT=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+function calPrev(){if(calMonth===0){calMonth=11;calYear--}else calMonth--;renderCalendar()}
+function calNext(){if(calMonth===11){calMonth=0;calYear++}else calMonth++;renderCalendar()}
+function renderCalendar(){
+  const b=getBrasiliaDate();
+  const tY=b.getFullYear(),tM=b.getMonth(),tD=b.getDate();
+  document.getElementById('cal-month-label').textContent=MONTHS_PT[calMonth]+' '+calYear;
+  document.getElementById('cal-today-info').textContent='Hoje: '+DAYS_PT[b.getDay()]+', '+b.getDate()+' de '+MONTHS_PT[b.getMonth()]+' de '+b.getFullYear()+' · '+String(b.getHours()).padStart(2,'0')+':'+String(b.getMinutes()).padStart(2,'0')+' (Brasília)';
+  const grid=document.getElementById('cal-grid');grid.innerHTML='';
+  DAYS_PT.forEach(function(dn){const h=document.createElement('div');h.className='cal-day-header';h.textContent=dn;grid.appendChild(h)});
+  const firstDow=new Date(calYear,calMonth,1).getDay();
+  const dim=new Date(calYear,calMonth+1,0).getDate();
+  for(let i=0;i<firstDow;i++){const e=document.createElement('div');e.className='cal-day empty';grid.appendChild(e)}
+  for(let d=1;d<=dim;d++){
+    const cell=document.createElement('div');
+    const isToday=calYear===tY&&calMonth===tM&&d===tD;
+    const isFuture=calYear>tY||(calYear===tY&&(calMonth>tM||(calMonth===tM&&d>tD)));
+    const k=dateKey(calYear,calMonth,d);
+    const log=state.studyLog[k];
+    cell.textContent=d;
+    if(isToday){cell.className='cal-day today';cell.title='Hoje'}
+    else if(isFuture){cell.className='cal-day future';cell.title=k}
+    else{cell.className='cal-day '+(log==='studied'?'studied':'not-studied')}
+    if(!isFuture){cell.addEventListener('click',function(){state.studyLog[k]=(state.studyLog[k]==='studied'?'not-studied':'studied');save();renderCalendar()})}
+    grid.appendChild(cell);
+  }
+}
+
+// =========================================================
+// DEFINIÇÕES DAS MATÉRIAS
+// =========================================================
+const SDEFS=[
+  {name:'Raciocínio lógico',color:'#7C3AED',weight:20,priority:'★★★ Principal',key:'logica'},
+  {name:'Matemática básica',color:'#00884A',weight:20,priority:'★★★ Principal',key:'matematica'},
+  {name:'Português',color:'#0066CC',weight:20,priority:'★★★ Principal',key:'portugues'},
+  {name:'Interpretação de texto',color:'#005691',weight:15,priority:'★★☆ Importante',key:'interpretacao'},
+  {name:'Informática básica',color:'#C47F00',weight:13,priority:'★★☆ Importante',key:'informatica'},
+  {name:'Programação / Tecnologia',color:'#E3001B',weight:12,priority:'★☆☆ Diferencial',key:'programacao'},
+];
+const LN=['','Fácil','Médio','Difícil','Expert'];
+const LB=['','lb-1','lb-2','lb-3','lb-4'];
+const CAT_META={
+  logica:{label:'Raciocínio lógico',bg:'#F3F0FF',color:'#7C3AED'},
+  matematica:{label:'Matemática',bg:'#E6F4EE',color:'#00884A'},
+  portugues:{label:'Português',bg:'#E6F0FF',color:'#0066CC'},
+  informatica:{label:'Informática',bg:'#FFF3CC',color:'#C47F00'},
+  interpretacao:{label:'Interpretação',bg:'#E6EFF6',color:'#005691'},
+  programacao:{label:'Programação',bg:'#FFF0F0',color:'#E3001B'},
+};
+
+// =========================================================
+// BANCO DE QUESTÕES
+// =========================================================
+const OTHER_QUESTIONS=[
+{id:'L1-01',cat:'logica',level:1,q:'Qual é o próximo número? 2, 4, 6, 8, __',opts:['9','10','11','12'],ans:1,exp:'Sequência +2. Após 8, vem 10.'},
+{id:'L1-02',cat:'logica',level:1,q:'Se hoje é segunda-feira, que dia será daqui a 3 dias?',opts:['Quarta','Quinta','Sexta','Sábado'],ans:1,exp:'Segunda + 3 = Quinta-feira.'},
+{id:'L1-03',cat:'logica',level:1,q:'Próximo número: 1, 3, 5, 7, __',opts:['8','9','10','11'],ans:1,exp:'Ímpares consecutivos. Após 7, vem 9.'},
+{id:'L1-04',cat:'logica',level:1,q:'Todos os cachorros são animais. Rex é cachorro. Rex é:',opts:['Um gato','Um animal','Uma planta','Um peixe'],ans:1,exp:'Dedução: cachorro é animal → Rex é animal.'},
+{id:'L1-05',cat:'logica',level:1,q:'Qual número é diferente? 2, 4, 6, 7, 8',opts:['2','4','7','8'],ans:2,exp:'7 é o único ímpar da lista.'},
+{id:'L1-06',cat:'logica',level:1,q:'Ana tem 5 maçãs e dá 2 para João. Quantas ela tem?',opts:['2','3','4','5'],ans:1,exp:'5 − 2 = 3 maçãs.'},
+{id:'L1-07',cat:'logica',level:1,q:'Próxima letra: A, C, E, G, __',opts:['H','I','J','K'],ans:1,exp:'Pulando uma letra: A C E G I.'},
+{id:'L1-08',cat:'logica',level:1,q:'Se 5 > 3 e 3 > 1, então:',opts:['1 > 5','5 > 1','3 > 5','1 > 3'],ans:1,exp:'Transitividade: 5 > 1.'},
+{id:'L2-01',cat:'logica',level:2,q:'Próximo número: 2, 4, 8, 16, __',opts:['24','30','32','36'],ans:2,exp:'Cada termo dobra. 16×2=32.'},
+{id:'L2-02',cat:'logica',level:2,q:'João é mais alto que Maria. Pedro é mais baixo que Maria. Quem é o mais alto?',opts:['Maria','Pedro','João','Igual'],ans:2,exp:'João > Maria > Pedro.'},
+{id:'L2-03',cat:'logica',level:2,q:'Próximos: 1, 4, 9, 16, __',opts:['20','25','30','36'],ans:1,exp:'Quadrados perfeitos: 5²=25.'},
+{id:'L2-04',cat:'logica',level:2,q:'Próximo: 3, 6, 12, 24, __',opts:['36','42','48','54'],ans:2,exp:'Dobra a cada vez. 24×2=48.'},
+{id:'L2-05',cat:'logica',level:2,q:'30 alunos: 18 gostam de mat, 15 de port, 7 dos dois. Quantos não gostam de nenhum?',opts:['2','3','4','5'],ans:2,exp:'18+15−7=26. 30−26=4.'},
+{id:'L2-06',cat:'logica',level:2,q:'Sequência: 100, 95, 90, 85, __',opts:['80','82','78','75'],ans:0,exp:'Diminui 5. 85−5=80.'},
+{id:'L3-01',cat:'logica',level:3,q:'Próximo (Fibonacci): 2, 3, 5, 8, 13, __',opts:['18','19','20','21'],ans:3,exp:'Soma dos dois anteriores: 8+13=21.'},
+{id:'L3-02',cat:'logica',level:3,q:'Pedro é o 5º da frente e 3º de trás. Quantos na fila?',opts:['6','7','8','9'],ans:1,exp:'5+3−1=7.'},
+{id:'L3-03',cat:'logica',level:3,q:'Todos os A são B. Nenhum B é C. Então:',opts:['Alguns A são C','Nenhum A é C','Todos C são A','Alguns B são A'],ans:1,exp:'A⊂B e B∩C=∅ → A∩C=∅.'},
+{id:'L3-04',cat:'logica',level:3,q:'Próxima: 2, 6, 12, 20, 30, __',opts:['40','42','44','48'],ans:1,exp:'Diferenças: 4,6,8,10,12 → 30+12=42.'},
+{id:'L4-01',cat:'logica',level:4,q:'3 máquinas fazem 3 peças em 3 min. 100 máquinas fazem 100 peças em:',opts:['100 min','33 min','3 min','1 min'],ans:2,exp:'Cada máquina faz 1/3min. 100 juntas = 3 min.'},
+{id:'L4-02',cat:'logica',level:4,q:'Tartaruga: poço de 30m, sobe 3m/dia, desce 2m/noite. Quantos dias para sair?',opts:['27','28','29','30'],ans:0,exp:'No 27º dia chega a 30m e sai.'},
+{id:'L4-03',cat:'logica',level:4,q:'5 pessoas em fila. A não pode ser 1ª nem última. Quantas posições A pode ocupar?',opts:['1','2','3','4'],ans:2,exp:'Posições 2, 3 ou 4 = 3 posições.'},
+{id:'M1-01',cat:'matematica',level:1,q:'Quanto é 20% de 150?',opts:['20','25','30','35'],ans:2,exp:'150×0,20=30.'},
+{id:'M1-02',cat:'matematica',level:1,q:'Produto de R$80 com 10% de desconto:',opts:['R$70','R$72','R$75','R$78'],ans:1,exp:'80−8=R$72.'},
+{id:'M1-03',cat:'matematica',level:1,q:'Média de 6, 8, 10:',opts:['7','8','9','10'],ans:1,exp:'(6+8+10)÷3=8.'},
+{id:'M1-04',cat:'matematica',level:1,q:'0,5 em porcentagem é:',opts:['5%','50%','5/100','0,05'],ans:1,exp:'0,5×100=50%.'},
+{id:'M1-05',cat:'matematica',level:1,q:'3 kg de arroz custam R$9. 5 kg custam:',opts:['R$12','R$13','R$15','R$18'],ans:2,exp:'(5×9)÷3=R$15.'},
+{id:'M1-06',cat:'matematica',level:1,q:'Qual é o dobro de 37?',opts:['64','74','76','84'],ans:1,exp:'37×2=74.'},
+{id:'M1-07',cat:'matematica',level:1,q:'Um quarto de 80 é:',opts:['15','20','25','40'],ans:1,exp:'80÷4=20.'},
+{id:'M2-01',cat:'matematica',level:2,q:'Produto foi de R$200 para R$250. Aumento percentual:',opts:['20%','25%','30%','50%'],ans:1,exp:'50/200×100=25%.'},
+{id:'M2-02',cat:'matematica',level:2,q:'Carro percorre 180 km em 2h. Velocidade média:',opts:['80','90','100','120'],ans:1,exp:'180÷2=90 km/h.'},
+{id:'M2-03',cat:'matematica',level:2,q:'Média de 4 notas é 7,5. A soma:',opts:['28','30','32','35'],ans:1,exp:'7,5×4=30.'},
+{id:'M2-04',cat:'matematica',level:2,q:'5 operários fazem muro em 8 dias. 10 fazem em:',opts:['2','4','6','16'],ans:1,exp:'Proporção inversa: x=4 dias.'},
+{id:'M2-05',cat:'matematica',level:2,q:'15% de desconto em R$120:',opts:['R$98','R$100','R$102','R$105'],ans:2,exp:'120−18=R$102.'},
+{id:'M3-01',cat:'matematica',level:3,q:'R$1.000, 5%/mês, 4 meses (juros simples). Montante:',opts:['R$1.150','R$1.200','R$1.050','R$1.100'],ans:1,exp:'1000×0,05×4=200. Montante=R$1.200.'},
+{id:'M3-02',cat:'matematica',level:3,q:'Dois números: soma 80, diferença 20. O maior:',opts:['40','45','50','55'],ans:2,exp:'x+y=80, x-y=20 → x=50.'},
+{id:'M3-03',cat:'matematica',level:3,q:'Torneira enche em 8h; outra esvazia em 12h. Com ambas abertas:',opts:['20h','24h','28h','30h'],ans:1,exp:'1/8−1/12=1/24 → 24h.'},
+{id:'M4-01',cat:'matematica',level:4,q:'Torneira A: 6h; B: 4h. Juntas:',opts:['2h','2h24min','3h','2h40min'],ans:1,exp:'12/5=2,4h=2h24min.'},
+{id:'M4-02',cat:'matematica',level:4,q:'Produto +20% depois -20%. Resultado:',opts:['Igual','4% maior','4% menor','20% maior'],ans:2,exp:'100×1,2×0,8=96. 4% menor.'},
+{id:'M4-03',cat:'matematica',level:4,q:'PA: 5, 11, 17, 23, … 10º termo:',opts:['59','61','63','65'],ans:0,exp:'a₁₀=5+9×6=59.'},
+{id:'I1-01',cat:'informatica',level:1,q:'Para que serve o HD?',opts:['Tipo de teclado','Armazenamento permanente','Memória temporária','Processador'],ans:1,exp:'HD armazena arquivos permanentemente.'},
+{id:'I1-02',cat:'informatica',level:1,q:'Para que serve a RAM?',opts:['Guardar arquivos','Processar imagens','Memória temporária em uso','Internet'],ans:2,exp:'RAM = memória temporária.'},
+{id:'I1-03',cat:'informatica',level:1,q:'No Excel, qual função soma?',opts:['=MEDIA()','=SOMA()','=TOTAL()','=CONTA()'],ans:1,exp:'=SOMA() soma células.'},
+{id:'I1-04',cat:'informatica',level:1,q:'O que é hardware?',opts:['Programas','Partes físicas','A internet','Arquivos'],ans:1,exp:'Hardware = partes físicas.'},
+{id:'I1-05',cat:'informatica',level:1,q:'Extensão do Word:',opts:['.xlsx','.pptx','.docx','.pdf'],ans:2,exp:'.docx = formato Word.'},
+{id:'I1-06',cat:'informatica',level:1,q:'O que é cursor?',opts:['Gabinete','Seta na tela','Teclado','Cabo'],ans:1,exp:'Cursor = ponteiro do mouse.'},
+{id:'I2-01',cat:'informatica',level:2,q:'Diferença entre HD e SSD:',opts:['SSD mais lento','SSD usa discos','SSD mais rápido e silencioso','HD mais moderno'],ans:2,exp:'SSD = memória flash, mais rápido.'},
+{id:'I2-02',cat:'informatica',level:2,q:'O que significa CPU?',opts:['Central Processing Unit','Common Peripheral Unit','Computer Power Unit','Central Program Update'],ans:0,exp:'CPU = processador.'},
+{id:'I2-03',cat:'informatica',level:2,q:'Phishing é:',opts:['Vírus que apaga','Técnica roubar dados','Programa proteção','Armazenamento'],ans:1,exp:'Phishing = fraude digital.'},
+{id:'I2-04',cat:'informatica',level:2,q:'O que é Wi-Fi?',opts:['Processador','Rede sem fio','Segurança','Memória'],ans:1,exp:'Wi-Fi = rede local sem fio.'},
+{id:'I3-01',cat:'informatica',level:3,q:'O que é cloud computing?',opts:['Servidores remotos pela internet','Hardware especial','Software local','Resfriamento'],ans:0,exp:'Cloud = servidores remotos na internet.'},
+{id:'I3-02',cat:'informatica',level:3,q:'Protocolo para navegação segura:',opts:['HTTP','FTP','HTTPS','SMTP'],ans:2,exp:'HTTPS = criptografia SSL/TLS.'},
+{id:'I3-03',cat:'informatica',level:3,q:'O que é firewall?',opts:['Processador','Barreira de segurança de rede','Edição de vídeo','Cabo de rede'],ans:1,exp:'Firewall filtra tráfego de rede.'},
+{id:'P1-01',cat:'interpretacao',level:1,q:'"O trabalho em equipe é fundamental." O texto defende:',opts:['Projetos solo','Colaboração é essencial','Sucesso individual','Trabalhar'],ans:1,exp:'A ideia central é colaboração.'},
+{id:'P1-02',cat:'interpretacao',level:1,q:'"Leia antes de assinar." Significa:',opts:['Assine rápido','Não leia','Entenda antes de se comprometer','Leitura desnecessária'],ans:2,exp:'Compreenda o documento antes.'},
+{id:'P1-03',cat:'interpretacao',level:1,q:'"Nem tudo que parece fácil é simples." Sugere:',opts:['Fácil = simples','Aparências enganam','Nada é fácil','Tudo é simples'],ans:1,exp:'Aparências podem enganar.'},
+{id:'P1-04',cat:'interpretacao',level:1,q:'"Cada erro é uma lição." Ideia de:',opts:['Evitar erros','Aprendizado com falhas','Erros definitivos','Não arriscar'],ans:1,exp:'Erros ensinam = crescimento.'},
+{id:'P2-01',cat:'interpretacao',level:2,q:'"A Bosch investe em jovens porque inovação começa com novas perspectivas." A razão:',opts:['Reduzir custos','Novas formas de pensar','Mais fáceis','Falta de sêniors'],ans:1,exp:'Novas perspectivas geram inovação.'},
+{id:'P2-02',cat:'interpretacao',level:2,q:'Aviso: "Proibido acesso sem EPI." Conclusão:',opts:['Qualquer um entra','EPI opcional','Só com equipamentos','Local público'],ans:2,exp:'EPI obrigatório para entrar.'},
+{id:'P2-03',cat:'interpretacao',level:2,q:'Requisito: "ensino médio OU curso técnico." Mariana tem ensino médio. Ela atende?',opts:['Não','Sim, basta um','Só técnico','Depende'],ans:1,exp:'OU = basta uma condição.'},
+{id:'P2-04',cat:'interpretacao',level:2,q:'"Candidatos com mais de 18 anos NÃO podem." João tem 17. Pode?',opts:['Não','Sim','Com autorização','Depende'],ans:1,exp:'17 anos: pode inscrever.'},
+{id:'P3-01',cat:'interpretacao',level:3,q:'Vendas: Jan=100, Fev=80, Mar=120, Abr=90. Qual é verdadeira?',opts:['Cresceu todo mês','Março foi o melhor','Fev > Abr','Caiu no total'],ans:1,exp:'Mar=120 é o maior.'},
+{id:'P3-02',cat:'interpretacao',level:3,q:'"O prazo é improrrogável e o não envio implica desclassificação." Quem envia depois:',opts:['Pode apelar','É desclassificado','Recebe aviso','Fica em espera'],ans:1,exp:'Sem entrega no prazo = desclassificado.'},
+{id:'G1-01',cat:'programacao',level:1,q:'O que é um algoritmo?',opts:['Linguagem','Sequência de passos para resolver problema','Tipo de computador','Erro'],ans:1,exp:'Algoritmo = sequência lógica de passos.'},
+{id:'G1-02',cat:'programacao',level:1,q:'O que faz o IF?',opts:['Repete código','Executa se condição verdadeira','Armazena','Mostra'],ans:1,exp:'IF verifica condição.'},
+{id:'G1-03',cat:'programacao',level:1,q:'O que é uma variável?',opts:['Erro','Espaço memória para guardar informação','Linguagem','Repetição'],ans:1,exp:'Variável = espaço de memória.'},
+{id:'G1-04',cat:'programacao',level:1,q:'O que é Inteligência Artificial?',opts:['Robô humanoide','Sistemas que aprendem e decidem','Tipo de internet','Editor'],ans:1,exp:'IA = sistemas que aprendem.'},
+{id:'G1-05',cat:'programacao',level:1,q:'O que é bug?',opts:['Funcionalidade','Erro que causa comportamento inesperado','Linguagem','Comando'],ans:1,exp:'Bug = erro no código.'},
+{id:'G1-06',cat:'programacao',level:1,q:'O que significa compilar?',opts:['Executar direto','Traduzir código para linguagem de máquina','Apagar','Backup'],ans:1,exp:'Compilar = traduzir para máquina.'},
+{id:'G2-01',cat:'programacao',level:2,q:'O que faz o laço FOR?',opts:['Verifica','Repete número determinado de vezes','Armazena','Conecta'],ans:1,exp:'FOR = repetição definida.'},
+{id:'G2-02',cat:'programacao',level:2,q:'Lógica correta para maioridade:',opts:['IF idade < 18','IF idade >= 18','IF idade == 18','IF idade > 21'],ans:1,exp:'Maior de idade >= 18.'},
+{id:'G2-03',cat:'programacao',level:2,q:'O que é automação?',opts:['Criar sites','Máquinas executam tarefas automaticamente','Desenhar interfaces','Redes sociais'],ans:1,exp:'Automação = tarefas sem intervenção humana.'},
+{id:'G2-04',cat:'programacao',level:2,q:'Qual estrutura repete enquanto condição verdadeira?',opts:['IF','FOR','WHILE','FUNCTION'],ans:2,exp:'WHILE = repetição condicional.'},
+{id:'G3-01',cat:'programacao',level:3,q:'Laço soma de 1 a 10. Resultado:',opts:['45','50','55','100'],ans:2,exp:'n(n+1)/2=55.'},
+{id:'G3-02',cat:'programacao',level:3,q:'Diferença entre software e hardware:',opts:['São iguais','Hardware=programas','Hardware=físico; software=programas','Software só em celulares'],ans:2,exp:'Hardware=físico; software=programas.'},
+{id:'G3-03',cat:'programacao',level:3,q:'O que é banco de dados?',opts:['Vírus','Sistema que armazena dados estruturados','Design','Processador'],ans:1,exp:'Banco de dados = armazenar e organizar dados.'},
+{id:'G4-01',cat:'programacao',level:4,q:'IF nota>=7:Aprovado, ELIF nota>=5:Recuperação, ELSE:Reprovado. Nota 6,5:',opts:['Aprovado','Recuperação','Reprovado','Erro'],ans:1,exp:'6,5>=5 mas não >=7 → Recuperação.'},
+{id:'G4-02',cat:'programacao',level:4,q:'WHILE x<5, x=1, soma 1/rodada. Quantas vezes roda?',opts:['3','4','5','6'],ans:1,exp:'x=1,2,3,4 → 4 rodadas.'},
+{id:'G4-03',cat:'programacao',level:4,q:'x=2; x=x*3+1; x=x-4. Valor final:',opts:['2','3','4','5'],ans:1,exp:'2→7→3.'},
+];
+
+const PORT_QUESTIONS=[{"id":"PT1-001","cat":"portugues","level":1,"q":"Qual a grafia correta?","opts":["Excessão","Exceção","Exeção","Excisão"],"ans":1,"exp":"\"Exceção\" vem do latim exceptio."},{"id":"PT1-002","cat":"portugues","level":1,"q":"Qual palavra está escrita corretamente?","opts":["Beneficiente","Beneficente","Benificente","Benificiente"],"ans":1,"exp":"\"Beneficente\" = que faz o bem."},{"id":"PT1-003","cat":"portugues","level":1,"q":"Assinale a grafia correta:","opts":["Paralizar","Paralisar","Paralizar","Paralizár"],"ans":1,"exp":"\"Paralisar\" com \"s\"."},{"id":"PT1-004","cat":"portugues","level":1,"q":"Qual é a forma correta?","opts":["Imprecindível","Imprescindível","Imprescíndivel","Imprecindíbel"],"ans":1,"exp":"\"Imprescindível\" com \"sc\"."},{"id":"PT1-005","cat":"portugues","level":1,"q":"Está correto escrever:","opts":["Prejiuzo","Prejuízo","Prejuizo","Preijuízo"],"ans":1,"exp":"\"Prejuízo\" com acento no \"i\"."},{"id":"PT1-021","cat":"portugues","level":1,"q":"Qual palavra é oxítona?","opts":["Árvore","Café","Lápis","Fácil"],"ans":1,"exp":"\"Café\" é oxítona: ca-FÉ."},{"id":"PT1-031","cat":"portugues","level":1,"q":"Sinônimo de alegre:","opts":["Triste","Feliz","Bravo","Calmo"],"ans":1,"exp":"\"Feliz\" = alegre, contente."},{"id":"PT1-041","cat":"portugues","level":1,"q":"Antônimo de cheio:","opts":["Repleto","Vazio","Grande","Novo"],"ans":1,"exp":"\"Vazio\" é o oposto de cheio."},{"id":"PT1-051","cat":"portugues","level":1,"q":"Em O menino correu rápido, qual é o sujeito?","opts":["Correu","Rápido","O menino","Menino"],"ans":2,"exp":"\"O menino\" é o sujeito."},{"id":"PT1-061","cat":"portugues","level":1,"q":"O gato bebeu água. Quem bebeu?","opts":["O cachorro","O gato","A água","Ninguém"],"ans":1,"exp":"O sujeito é \"o gato\"."},{"id":"PT1-071","cat":"portugues","level":1,"q":"Qual pontuação encerra uma pergunta?","opts":["Ponto final","Vírgula","Ponto de interrogação","Reticências"],"ans":2,"exp":"? encerra perguntas diretas."},{"id":"PT1-076","cat":"portugues","level":1,"q":"Qual o plural de pão?","opts":["Pãos","Pões","Pães","Páos"],"ans":2,"exp":"\"Pães\" é o plural correto."},{"id":"PT1-086","cat":"portugues","level":1,"q":"Um texto que conta história com personagens é:","opts":["Dissertativo","Narrativo","Descritivo","Injuntivo"],"ans":1,"exp":"Texto narrativo conta fatos."},{"id":"PT2-001","cat":"portugues","level":2,"q":"Qual frase tem concordância correta?","opts":["Os aluno chegou.","As alunas chegaram.","Os alunos chegou.","As aluna chegaram."],"ans":1,"exp":"Sujeito plural + verbo plural."},{"id":"PT2-011","cat":"portugues","level":2,"q":"O verbo obedecer é regido por:","opts":["Objeto direto","Objeto indireto com a","Objeto indireto com de","Sem complemento"],"ans":1,"exp":"\"Obedecer a\" alguém."},{"id":"PT2-021","cat":"portugues","level":2,"q":"Fui ___ escola:","opts":["a escola","à escola","as escola","às escola"],"ans":1,"exp":"\"À escola\" = preposição + artigo feminino = crase."},{"id":"PT2-031","cat":"portugues","level":2,"q":"Qual é o pronome relativo em O livro que comprei é ótimo?","opts":["O","Livro","Que","Comprei"],"ans":2,"exp":"\"Que\" é pronome relativo."},{"id":"PT2-051","cat":"portugues","level":2,"q":"O tempo é dinheiro. Essa figura é:","opts":["Comparação","Metáfora","Hipérbole","Ironia"],"ans":1,"exp":"Metáfora: identificação direta sem como."},{"id":"PT3-001","cat":"portugues","level":3,"q":"Na frase O livro, que comprei ontem, é ótimo, a oração que comprei ontem é:","opts":["Principal","Subordinada adjetiva","Coordenada","Subordinada substantiva"],"ans":1,"exp":"Oração adjetiva modifica \"livro\"."},{"id":"PT3-036","cat":"portugues","level":3,"q":"Antítese é:","opts":["Repetição de sons","Oposição de ideias juntas","Exagero","Comparação"],"ans":1,"exp":"Antítese = contraposição de ideias opostas."},{"id":"PT4-001","cat":"portugues","level":4,"q":"Analise: Não há dúvida de que ele virá. A oração de que ele virá é:","opts":["Adjunto adnominal","Sujeito","Complemento nominal de dúvida","Aposto"],"ans":2,"exp":"Complemento nominal completa substantivo."},{"id":"PT4-028","cat":"portugues","level":4,"q":"O que é gradação (clímax)?","opts":["Sentidos em intensidade crescente ou decrescente","Exagero","Repetição","Omissão"],"ans":0,"exp":"Gradação = sequência crescente ou decrescente de intensidade."}];
+
+const QUESTIONS=OTHER_QUESTIONS.concat(PORT_QUESTIONS);
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const buf=new Uint32Array(1);crypto.getRandomValues(buf);
+    const j=buf[0]%(i+1);[a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function pickPerCategory(pool,total){
+  const cats=['logica','matematica','portugues','interpretacao','informatica','programacao'];
+  const perCat=Math.floor(total/cats.length);
+  let result=[];
+  cats.forEach(function(cat){
+    const catQ=shuffle(pool.filter(function(q){return q.cat===cat}));
+    result=result.concat(catQ.slice(0,perCat));
+  });
+  if(result.length<total){
+    const usedIds=new Set(result.map(function(q){return q.id}));
+    const extra=shuffle(pool.filter(function(q){return !usedIds.has(q.id)}));
+    result=result.concat(extra.slice(0,total-result.length));
+  }
+  return shuffle(result);
+}
+
+let currentQuiz=[],currentQ=0,answers=[],activeFilter='todas';
+function totalPct(){return Math.round(state.progress.reduce(function(a,v,i){return a+v*(SDEFS[i].weight/100)},0))}
+function getWeekKey(){const d=new Date();const j=new Date(d.getFullYear(),0,1);return d.getFullYear()+'-W'+Math.ceil(((d-j)/86400000+j.getDay()+1)/7)}
+function fmtDate(d){return new Date(d).toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})}
+
+function showPage(p,btn){
+  document.querySelectorAll('.page').forEach(function(el){el.style.display='none'});
+  document.querySelectorAll('.nav-link').forEach(function(el){el.classList.remove('active')});
+  document.getElementById('page-'+p).style.display='block';
+  if(btn)btn.classList.add('active');
+  if(p==='quiz'){document.getElementById('current-level-label').textContent='Nível '+state.quizLevel+' — '+LN[state.quizLevel];showStartScreen()}
+  if(p==='historico')renderHistorico();
+  window.scrollTo(0,0);
+}
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+}
+function showStartScreen(){
+  document.getElementById('quiz-start-screen').style.display='block';
+  document.getElementById('quiz-in-progress').style.display='none';
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('current-level-label').textContent='Nível '+state.quizLevel+' — '+LN[state.quizLevel];
+}
+function startQuiz(){
+  const lv=state.quizLevel;
+  let pool=QUESTIONS.filter(function(q){
+    const lOk=q.level===lv||(lv===4&&q.level>=3)||(lv===1&&q.level<=2);
+    const cOk=activeFilter==='todas'||q.cat===activeFilter;
+    return lOk&&cOk;
+  });
+  const lastIds=new Set(state.lastQuizIds||[]);
+  const freshPool=pool.filter(function(q){return !lastIds.has(q.id)});
+  const workingPool=freshPool.length>=10?freshPool:pool;
+  const finalPool=workingPool.length>=10?workingPool:QUESTIONS.filter(function(q){return activeFilter==='todas'||q.cat===activeFilter});
+  const chosen=activeFilter==='todas'?pickPerCategory(finalPool,20):shuffle(finalPool).slice(0,20);
+  state.lastQuizIds=chosen.map(function(q){return q.id});save();
+  currentQuiz=chosen;currentQ=0;answers=[];
+  document.getElementById('quiz-start-screen').style.display='none';
+  document.getElementById('quiz-in-progress').style.display='block';
+  document.getElementById('quiz-result').style.display='none';
+  resetProfChat();
+  renderQuestion();
+}
+function restartSameLevel(){startQuiz()}
+function renderQuestion(){
+  if(currentQ>=currentQuiz.length){showResult();return}
+  const q=currentQuiz[currentQ];
+  const pct=Math.round((currentQ/currentQuiz.length)*100);
+  document.getElementById('quiz-prog-fill').style.width=pct+'%';
+  document.getElementById('q-num').textContent=currentQ+1;
+  document.getElementById('q-num2').textContent=(currentQ+1)+'/'+currentQuiz.length;
+  document.getElementById('q-num3').textContent=(currentQ+1)+'/'+currentQuiz.length;
+  const cm=CAT_META[q.cat]||{label:q.cat,bg:'#f5f5f5',color:'#555'};
+  const cEl=document.getElementById('q-cat');cEl.textContent=cm.label;cEl.style.background=cm.bg;cEl.style.color=cm.color;
+  document.getElementById('q-diff').textContent='Nível '+q.level+' — '+LN[q.level];
+  document.getElementById('q-text').textContent=q.q;
+  const lb=document.getElementById('level-badge');
+  lb.textContent='Nível '+state.quizLevel+' — '+LN[state.quizLevel];
+  lb.className='level-badge '+LB[state.quizLevel];
+  const opts=document.getElementById('q-options');
+  const letters=['A','B','C','D'];
+  opts.innerHTML=q.opts.map(function(o,i){return '<button class="opt-btn" onclick="selectAnswer('+i+')"><span class="opt-letter">'+letters[i]+'</span>'+o.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</button>'}).join('');
+  document.getElementById('q-feedback').className='feedback-box';
+  document.getElementById('q-feedback').textContent='';
+  document.getElementById('btn-next').className='btn-next';
+  updateProfContext();
+}
+function selectAnswer(idx){
+  const q=currentQuiz[currentQ];const correct=q.ans===idx;
+  answers.push({q:q,chosen:idx,correct:correct});
+  document.querySelectorAll('.opt-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===q.ans)b.classList.add('correct');
+    else if(i===idx&&!correct)b.classList.add('wrong');
+  });
+  const fb=document.getElementById('q-feedback');
+  fb.className='feedback-box show '+(correct?'ok':'fail');
+  fb.textContent=(correct?'✓ Correto! ':'✗ Errado. ')+q.exp;
+  document.getElementById('btn-next').className='btn-next show';
+  updateProfContextAfterAnswer(correct,q);
+}
+function nextQuestion(){currentQ++;if(currentQ>=currentQuiz.length){showResult();return}renderQuestion()}
+function showResult(){
+  document.getElementById('quiz-in-progress').style.display='none';
+  document.getElementById('quiz-result').style.display='block';
+  const total=answers.length,correct=answers.filter(function(a){return a.correct}).length;
+  const pct=Math.round((correct/total)*100);
+  const scoreEl=document.getElementById('res-score');scoreEl.textContent=pct+'%';
+  let label,msg,nextMsg;const oldLevel=state.quizLevel;
+  if(pct>=70){label='Excelente!';msg='Você dominou esse nível!';scoreEl.style.color='#22C55E';
+    if(state.quizLevel<4){state.quizLevel++;nextMsg='🔥 Nível subiu!'}else nextMsg='🏆 Nível máximo!'}
+  else if(pct>=50){label='Bom progresso!';msg='Revise os erros e refaça para subir.';scoreEl.style.color='#F59E0B';nextMsg='→ Nível mantido: '+LN[state.quizLevel]}
+  else{label='Continue praticando!';msg='Revise o conteúdo e tente de novo.';scoreEl.style.color='#FF6B7A';
+    if(state.quizLevel>1){state.quizLevel--;nextMsg='📉 Nível reduziu.'}else nextMsg='Pratique o básico!'}
+  document.getElementById('res-label').textContent=label+' — '+correct+'/'+total+' corretas';
+  document.getElementById('res-msg').textContent=msg;document.getElementById('res-next').textContent=nextMsg;
+  const catMap={logica:0,matematica:1,portugues:2,interpretacao:3,informatica:4,programacao:5};
+  const catR={};
+  answers.forEach(function(a){if(!catR[a.q.cat])catR[a.q.cat]={c:0,t:0};catR[a.q.cat].t++;if(a.correct)catR[a.q.cat].c++});
+  Object.keys(catR).forEach(function(cat){const idx=catMap[cat];if(idx===undefined)return;const r=catR[cat];const gain=Math.round((r.c/r.t)*8);state.progress[idx]=Math.min(100,state.progress[idx]+gain)});
+  state.simHistory.push({date:new Date().toISOString(),score:pct,correct:correct,total:total,level:oldLevel,filter:activeFilter});
+  state.weeklyLog[getWeekKey()]=totalPct();
+  markStudiedToday();save();renderDashboard();renderCalendar();
+  const bl=document.getElementById('breakdown-list');
+  bl.innerHTML=answers.map(function(a){
+    const cm=CAT_META[a.q.cat]||{label:a.q.cat,color:'#888',bg:'#f5f5f5'};
+    return '<div class="breakdown-item"><span style="font-weight:800;font-size:14px;color:'+(a.correct?'var(--green)':'var(--red)')+';min-width:20px">'+(a.correct?'✓':'✗')+'</span><div style="flex:1"><div style="font-weight:600;color:var(--text);margin-bottom:3px;font-size:13px">'+a.q.q+'</div><div style="font-size:12px;color:'+(a.correct?'var(--green)':'var(--red)')+'">'+( a.correct?'Correto!':'Errado — Certo: '+a.q.opts[a.q.ans])+'</div><div style="font-size:11px;color:var(--text3);margin-top:2px">'+a.q.exp+'</div></div><span style="font-size:10px;padding:2px 8px;border-radius:2px;background:'+cm.bg+';color:'+cm.color+';white-space:nowrap;font-weight:600">'+cm.label+'</span></div>';
+  }).join('');
+  window.scrollTo(0,0);
+}
+
+// =========================================================
+// PROFESSOR IA
+// =========================================================
+let profChatHistory=[];
+let profTyping=false;
+
+function resetProfChat(){
+  profChatHistory=[];
+  const msgs=document.getElementById('prof-messages');
+  msgs.innerHTML='<div class="msg prof"><strong>Prof. Bosch IA</strong>Olá! Sou seu professor durante o simulado. Estou aqui para explicar qualquer coisa — conceitos, como resolver, dúvidas de gramática, lógica, matemática... Pergunte à vontade! 📚</div>';
+}
+
+function updateProfContext(){
+  if(currentQ>=currentQuiz.length)return;
+  const q=currentQuiz[currentQ];
+  const cm=CAT_META[q.cat]||{label:q.cat};
+  document.getElementById('prof-context').innerHTML='<strong>📝 Questão '+(currentQ+1)+'/'+currentQuiz.length+' — '+cm.label+'</strong>'+q.q.substring(0,90)+(q.q.length>90?'…':'');
+}
+
+function updateProfContextAfterAnswer(correct,q){
+  const cm=CAT_META[q.cat]||{label:q.cat};
+  document.getElementById('prof-context').innerHTML='<strong>'+(correct?'✅':'❌')+' Questão '+(currentQ+1)+' — '+cm.label+'</strong>'+q.q.substring(0,70)+(q.q.length>70?'…':'')+'<br><span style="color:'+(correct?'var(--green)':'var(--red)')+';font-weight:600">'+(correct?'Correta!':'Errada')+'</span>';
+  if(!correct){
+    setTimeout(function(){
+      addProfMessage('Você errou essa. Quer que eu explique por que a resposta correta é "'+q.opts[q.ans]+'"? É só perguntar! 💡',false);
+    },800);
+  }
+}
+
+function addProfMessage(text,isUser){
+  const msgs=document.getElementById('prof-messages');
+  const div=document.createElement('div');
+  div.className='msg '+(isUser?'user':'prof');
+  if(!isUser)div.innerHTML='<strong>Prof. Bosch IA</strong>'+text;
+  else div.textContent=text;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function showTyping(){
+  const msgs=document.getElementById('prof-messages');
+  const div=document.createElement('div');
+  div.className='msg typing';
+  div.id='typing-indicator';
+  div.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function hideTyping(){
+  const t=document.getElementById('typing-indicator');
+  if(t)t.remove();
+}
+
+function profKeydown(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendProfMessage()}
+}
+
+function sendQuick(txt){
+  document.getElementById('prof-input').value=txt;
+  sendProfMessage();
+}
+
+async function sendProfMessage(){
+  if(profTyping)return;
+  const inp=document.getElementById('prof-input');
+  const userMsg=inp.value.trim();
+  if(!userMsg)return;
+  inp.value='';
+  addProfMessage(userMsg,true);
+  profTyping=true;
+  document.getElementById('prof-send-btn').disabled=true;
+  showTyping();
+
+  // Build context about current question
+  let questionContext='';
+  if(currentQ<currentQuiz.length){
+    const q=currentQuiz[currentQ];
+    const cm=CAT_META[q.cat]||{label:q.cat};
+    const lastAnswer=answers.length>0?answers[answers.length-1]:null;
+    questionContext='Questão atual ('+(currentQ+1)+'/'+currentQuiz.length+', '+cm.label+', Nível '+q.level+'): "'+q.q+'" | Opções: A) '+q.opts[0]+' B) '+q.opts[1]+' C) '+q.opts[2]+' D) '+q.opts[3]+' | Gabarito: '+['A','B','C','D'][q.ans]+') '+q.opts[q.ans]+' | Explicação: '+q.exp+'.';
+    if(lastAnswer&&lastAnswer.q.id===q.id){
+      questionContext+=' O aluno '+(lastAnswer.correct?'acertou':'errou, escolheu '+['A','B','C','D'][lastAnswer.chosen]+') '+q.opts[lastAnswer.chosen])+'.';
+    }
+  }
+
+  profChatHistory.push({role:'user',content:userMsg});
+
+  const systemPrompt=`Você é o Prof. Bosch IA, um professor simpático, didático e encorajador especializado em preparar jovens para o processo seletivo Jovem Aprendiz da Bosch Brasil. As matérias são: Raciocínio Lógico, Matemática Básica, Português, Interpretação de Texto, Informática Básica e Programação/Tecnologia.
+
+Contexto da questão: ${questionContext||'Simulado em andamento.'}
+
+Seu estilo: use linguagem simples e jovem, seja encorajador, use emojis com moderação, explique passo a passo quando necessário, dê exemplos práticos. Respostas curtas a médias (máximo 150 palavras). Foco total em ajudar o aluno a entender e aprender.`;
+
+  try{
+    const response=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:400,
+        system:systemPrompt,
+        messages:profChatHistory.slice(-10)
+      })
+    });
+    const data=await response.json();
+    hideTyping();
+    if(data.content&&data.content[0]&&data.content[0].text){
+      const reply=data.content[0].text;
+      profChatHistory.push({role:'assistant',content:reply});
+      addProfMessage(reply,false);
+    }else{
+      addProfMessage('Desculpe, tive um probleminha técnico. Tente novamente! 🔄',false);
+    }
+  }catch(err){
+    hideTyping();
+    addProfMessage('Ops! Sem conexão no momento. Mas você pode usar a explicação do gabarito logo abaixo da questão! 📖',false);
+  }
+  profTyping=false;
+  document.getElementById('prof-send-btn').disabled=false;
+}
+
+// =========================================================
+// DASHBOARD
+// =========================================================
+let lChart=null,pChart=null;
+function renderDashboard(){
+  const t=totalPct();const dl=daysLeft();
+  document.getElementById('days-badge').textContent=dl+' dias';
+  document.getElementById('h-total').innerHTML=t+'<span>%</span>';
+  document.getElementById('h-days').textContent=dl;
+  document.getElementById('h-sims').textContent=state.simHistory.length;
+  document.getElementById('h-level').textContent=state.quizLevel;
+  const me=document.getElementById('m-total');me.textContent=t+'%';me.className='m-value'+(t>=70?' good':t>=40?' warn':'');
+  document.getElementById('m-days').textContent=dl;
+  document.getElementById('m-sessions').textContent=state.simHistory.length;
+  const g=state.progress.filter(function(v){return v>=70}).length;
+  document.getElementById('m-green').textContent=g+'/6';
+  document.getElementById('m-green').className='m-value'+(g>=4?' good':g>=2?' warn':'');
+  const gr=document.getElementById('subjects-grid');gr.innerHTML='';
+  SDEFS.forEach(function(sd,i){
+    const pct=state.progress[i];
+    let status,sc;
+    if(pct>=70){status='No verde ✓';sc='green'}else if(pct>=40){status='Em progresso';sc='amber'}else{status='Começando';sc='muted'}
+    const d=document.createElement('div');d.className='subject-card';
+    d.innerHTML='<div class="s-top"><div><div class="s-name">'+sd.name+'</div><div class="s-priority">'+sd.priority+' · peso '+sd.weight+'%</div></div><div class="s-pct" style="color:'+sd.color+'">'+pct+'%</div></div><div class="bar-bg"><div class="bar-fill" style="width:'+pct+'%;background:'+sd.color+'"></div></div><div class="s-btns"><button class="s-btn minus" onclick="adj('+i+',-10)">−10%</button><button class="s-btn minus" onclick="adj('+i+',-5)">−5%</button><button class="s-btn plus" onclick="adj('+i+',5)">+5%</button><button class="s-btn plus" onclick="adj('+i+',10)">+10%</button><span class="s-status '+sc+'">'+status+'</span></div>';
+    gr.appendChild(d);
+  });
+  const logKeys=Object.keys(state.weeklyLog).sort();const logVals=logKeys.map(function(k){return state.weeklyLog[k]});
+  const labels=Array.from({length:Math.max(4,logVals.length+1)},function(_,i){return 'Sem '+(i+1)});
+  const data=new Array(labels.length).fill(null);logVals.forEach(function(v,i){if(i<data.length)data[i]=v});
+  const target=labels.map(function(_,i){return Math.round((i+1)/16*100)});
+  const lCtx=document.getElementById('lineChart').getContext('2d');
+  if(lChart)lChart.destroy();
+  lChart=new Chart(lCtx,{type:'line',data:{labels:labels,datasets:[{label:'Progresso',data:data,borderColor:'#E3001B',backgroundColor:'rgba(227,0,27,0.05)',tension:0.4,fill:true,pointBackgroundColor:'#E3001B',borderWidth:2,pointRadius:4},{label:'Meta',data:target,borderColor:'rgba(0,136,74,0.4)',borderDash:[5,5],borderWidth:1.5,pointRadius:0,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:0,max:100,ticks:{callback:function(v){return v+'%'},font:{size:10},color:'#999'},grid:{color:'rgba(0,0,0,0.05)'},border:{display:false}},x:{ticks:{font:{size:10},color:'#999'},grid:{display:false},border:{display:false}}}}});
+  const pCtx=document.getElementById('pieChart').getContext('2d');
+  if(pChart)pChart.destroy();
+  pChart=new Chart(pCtx,{type:'doughnut',data:{labels:SDEFS.map(function(s){return s.name}),datasets:[{data:SDEFS.map(function(s){return s.weight}),backgroundColor:SDEFS.map(function(s){return s.color}),borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},cutout:'60%'}});
+  document.getElementById('pie-legend').innerHTML=SDEFS.map(function(s){return '<span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:2px;background:'+s.color+';flex-shrink:0"></span>'+s.name+'<span style="color:var(--border2);margin-left:auto">'+s.weight+'%</span></span>'}).join('');
+  const wg=document.getElementById('weeks-grid');wg.innerHTML='';
+  const done=Math.min(16,Math.ceil(state.simHistory.length/1.5));
+  for(let i=0;i<16;i++){const d=document.createElement('div');d.className='week-cell';d.title='Semana '+(i+1);if(i<done){const ok=t>=Math.round((i+1)/16*100);d.style.background=ok?'var(--green)':'var(--blue)';d.style.color='#fff'}else{d.style.background='var(--bg2)';d.style.color='var(--text3)'}d.textContent=i+1;wg.appendChild(d)}
+}
+function adj(i,delta){state.progress[i]=Math.max(0,Math.min(100,state.progress[i]+delta));state.weeklyLog[getWeekKey()]=totalPct();save();renderDashboard()}
+function addSession(){
+  const sel=document.getElementById('sel-subject');const pct=document.getElementById('inp-pct');const note=document.getElementById('inp-note');
+  const idx=parseInt(sel.value);if(isNaN(idx)||sel.value===''||!pct.value)return;
+  const gain=Math.min(10,Math.max(1,parseInt(pct.value)));
+  state.progress[idx]=Math.min(100,state.progress[idx]+gain);
+  state.sessions.push({subj:idx,gain:gain,note:note.value.trim(),date:new Date().toISOString()});
+  state.weeklyLog[getWeekKey()]=totalPct();
+  markStudiedToday();
+  sel.value='';pct.value='';note.value='';
+  save();renderDashboard();renderCalendar();
+}
+function renderHistorico(){
+  const sl=document.getElementById('sim-hist-list');
+  if(!state.simHistory.length){sl.innerHTML='<div class="empty-state">Nenhum simulado realizado ainda.</div>'}
+  else{sl.innerHTML=[...state.simHistory].reverse().map(function(s){return '<div class="hist-item"><span class="hist-score" style="color:'+(s.score>=70?'var(--green)':s.score>=50?'var(--amber)':'var(--red)')+'">'+s.score+'%</span><span class="hist-info">'+s.correct+'/'+s.total+' corretas · '+(CAT_META[s.filter]?CAT_META[s.filter].label:'Todas')+'</span><span class="hist-level-tag">Nível '+s.level+'</span><span class="hist-date">'+fmtDate(s.date)+'</span></div>'}).join('')}
+  const el=document.getElementById('session-list');
+  if(!state.sessions.length){el.innerHTML='<div class="empty-state">Nenhuma sessão registrada.</div>'}
+  else{el.innerHTML=[...state.sessions].reverse().slice(0,20).map(function(s){return '<div class="session-item"><div class="s-dot" style="background:'+SDEFS[s.subj].color+'"></div><span class="s-subj2">'+SDEFS[s.subj].name+'</span><span class="s-note2">'+(s.note||'—')+'</span><span class="s-gain">+'+s.gain+'%</span><span class="s-date2">'+fmtDate(s.date)+'</span></div>'}).join('')}
+}
+
+renderDashboard();
+renderCalendar();
+setInterval(function(){renderCalendar()},60000);
+</script>
+</body>
+</html>
